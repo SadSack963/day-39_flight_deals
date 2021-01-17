@@ -1,12 +1,13 @@
-import os
 import requests
-import datetime as dt
+import os
+from dotenv import load_dotenv
 
 
 # https://dashboard.sheety.co/
 # https://sheety.co/docs/requests
-BEARER = os.environ.get("API_Bearer_Sheety")
-USERNAME = os.environ.get("API_Username_Sheety")
+load_dotenv("E:/Python/EnvironmentVariables/.env")
+BEARER = os.getenv("API_Bearer_Sheety")
+USERNAME = os.getenv("API_Username_Sheety")
 PROJECT = "flightDeals"
 SHEET = "prices"
 
