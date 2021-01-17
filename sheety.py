@@ -33,5 +33,20 @@ def post_new_row(city, iata_code, lowest_price):
 
     response = requests.post(url=url, headers=headers, json=body)
     response.raise_for_status()
-    print(response.text)
+    # print(response.text)
 
+
+def get_all_rows():
+    base_url = "https://api.sheety.co"
+    endpoint_url = f"/{USERNAME}/{PROJECT}/{SHEET}"
+    url = base_url + endpoint_url
+
+    headers = {
+        "Authorization": f"Bearer {BEARER}",
+    }
+
+    response = requests.get(url=url, headers=headers)
+    response.raise_for_status()
+    # print(response.text)
+
+    return response.json()["prices"]
