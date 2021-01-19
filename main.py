@@ -20,11 +20,13 @@ def get_iata_codes():
     fs = FlightSearch()
     for item in sheet_data:
         if item["iataCode"] == "":
+            # Get city code
             city_code = fs.get_iata_city(item["city"])
             # print(city_code)
             if city_code is None:
-                print(f"No city code for {item['city']}")
+                print(f"City location not found: {item['city']}")
             else:
+                # insert code into spreadsheet
                 dm.modify_row(id=item["id"], iata=city_code)
 
 

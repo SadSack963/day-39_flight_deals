@@ -30,5 +30,8 @@ class FlightSearch:
         """
         {"locations":[{"id":"paris_fr","active":true,"name":"Paris","slug":"paris-france","slug_en":"paris-france","code":"PAR"...],"meta":{"locale":{"code":"en-US","status":"Locale not specified, using default."}},"last_refresh":1610961748,"results_retrieved":1}
         """
-
-        return response.json()["locations"][0]["code"]
+        try:
+            return response.json()["locations"][0]["code"]
+        except:
+            print(f"No data for city: {city}\n{response.text}")
+            return None

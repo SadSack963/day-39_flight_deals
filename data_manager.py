@@ -18,7 +18,6 @@ class DataManager:
         self.base_url = "https://api.sheety.co"
 
     def post_new_row(self, city, iata_code, lowest_price):
-
         endpoint_url = f"/{USERNAME}/{PROJECT}/{SHEET}"
         url = self.base_url + endpoint_url
 
