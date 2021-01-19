@@ -40,11 +40,9 @@ class DataManager:
         response.raise_for_status()
         # print(response.text)
 
-    @staticmethod
-    def get_all_rows():
-        base_url = "https://api.sheety.co"
+    def get_all_rows(self):
         endpoint_url = f"/{USERNAME}/{PROJECT}/{SHEET}"
-        url = base_url + endpoint_url
+        url = self.base_url + endpoint_url
 
         headers = {
             "Authorization": f"Bearer {BEARER}",
@@ -56,6 +54,36 @@ class DataManager:
 
         return response.json()["prices"]
 
-    def modify_row(self, id):
-        pass
+    def modify_row(self, id, **kwargs):
+        """
+        Requires: id= Spreadsheet row number (string),
+        Optional: city= City name (string)
+                  iata= IATA number (string)
+                  lowestPrice= Lowest Price (int)
+        """
+        endpoint_url = f"/{USERNAME}/{PROJECT}/{SHEET}/{id}"
+        url = self.base_url + endpoint_url
+
+        headers = {
+            "Authorization": f"Bearer {BEARER}",
+        }
+
+        body = {
+            "price": {
+            }
+        }
+
+        for key in kwargs:
+            if key == "city":
+                body["price"]["city"] = kwargs[key]
+            if key == "iata":
+                body["price"]["iataCode"] = kwargs[key]
+            if key == "lowestPrice":
+                body["price"]["lowestPrice"] = kwargs[key]
+        # print(body)
+
+        response = requests.put(url=url, headers=headers, json=body)
+        response.raise_for_status()
+        # print(response.text)
+
 
