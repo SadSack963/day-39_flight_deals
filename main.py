@@ -17,7 +17,6 @@ API_KEY = os.getenv("APIKey_test001_Tequila")
 
 def get_iata_codes():
     # Insert City IATA codes in the spreadsheet
-    fs = FlightSearch()
     for item in sheet_data:
         if item["iataCode"] == "":
             # Get city code
@@ -31,6 +30,7 @@ def get_iata_codes():
 
 
 dm = DataManager()
+fs = FlightSearch()
 
 # Add a new row to the spreadsheet
 # dm.post_new_row("Perth", "", 600)
@@ -59,6 +59,6 @@ sheet_data = dm.get_all_rows()
  {'city': 'Perth', 'iataCode': '', 'id': 11, 'lowestPrice': 600}]
  """
 
-get_iata_codes()
+# get_iata_codes()
 
-
+fs.flight_search("LON", "PER", "20/07/2021", "20/08/2021", 7, 28, 2000)
