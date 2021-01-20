@@ -5,7 +5,7 @@ from data_manager import DataManager
 from flight_search import FlightSearch
 from search_data import SearchData
 from flight_data import FlightData
-import notification_manager
+import notification_manager as nm
 import pprint
 
 import os
@@ -66,14 +66,19 @@ sheet_data = dm.get_all_rows()
 # # Search for flights to all cities with a price lower than the one specified in the spreadsheet
 sd = SearchData(apikey=fs.API_KEY)
 for item in sheet_data:
+    # Set up search data
     sd.fly_to = item["iataCode"]
     sd.price_to = item["lowestPrice"]
+    sd.nights_in_dst_from = 7
+    sd.nights_in_dst_to = 28
+    # Get search results
     flight = fs.flight_search(sd)
     if flight is None:
         print(f"No flight with lower price to {item['city']}\n")
     else:
         # Update the spreadsheet
         dm.modify_row(id=item["id"], lowestPrice=flight["price"])
+        # Save the flight details in object
         fd = FlightData(
             price=flight["price"],
             city_from=flight["cityFrom"],
@@ -83,9 +88,10 @@ for item in sheet_data:
             date_dep=flight["route"][0]["local_departure"][slice(10)],
             date_ret=flight["route"][1]["local_departure"][slice(10)],
         )
-        print(f"Price: {fd.price}")
+        print(f"Price: £{fd.price}")
         print(f"From:  {fd.city_from} {fd.airport_from}")
         print(f"To:    {fd.city_to} {fd.airport_to}")
         print(f"Dep:   {fd.date_dep}")
         print(f"Ret:   {fd.date_ret}\n\n")
-
+        # Send flight details by email
+        nm.send_mail(fd)

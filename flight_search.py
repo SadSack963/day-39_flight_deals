@@ -2,7 +2,6 @@ import requests
 import os
 from dotenv import load_dotenv
 import search_data
-import flight_data
 
 
 class FlightSearch:
