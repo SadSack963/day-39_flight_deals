@@ -3,8 +3,8 @@
 
 from data_manager import DataManager
 from flight_search import FlightSearch
-import flight_data as fd
-import notification_manager as nm
+from flight_data import FlightData
+import notification_manager
 import pprint
 
 import os
@@ -61,4 +61,11 @@ sheet_data = dm.get_all_rows()
 
 # get_iata_codes()
 
-fs.flight_search("LON", "PER", "20/07/2021", "20/08/2021", 7, 28, 2000)
+# Search for flights to all cities with a price lower than the one specified in the spreadsheet
+fd = FlightData(apikey=fs.API_KEY)
+for item in sheet_data:
+    fd.fly_to = item["iataCode"]
+    fd.price_to = item["lowestPrice"]
+    price = fs.flight_search(fd)
+    # Update the spreadsheet
+    dm.modify_row(id=item["id"], lowestPrice=price)

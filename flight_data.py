@@ -1,11 +1,17 @@
+import datetime as dt
+
+
 class FlightData:
     # This class is responsible for structuring the flight data.
-    def __init__(self):
-        self.apikey = ""
+    def __init__(self, apikey):
+        now = dt.datetime.now()
+        delta_day = dt.timedelta(days=1)
+        delta_6_months = dt.timedelta(days=180)
+
         self.fly_from = "LON" # Kiwi API ID of the departure location.
         self.fly_to = ""
-        self.date_from = "" # search flights from this date (dd/mm/yyyy)
-        self.date_to = ""
+        self.date_from = (now + delta_day).strftime("%d/%m/%Y") # search flights from this date (dd/mm/yyyy)
+        self.date_to = (now + delta_day + delta_6_months).strftime("%d/%m/%Y")
         self.nights_in_dst_from = 0  # the minimal length of stay in the destination
         self.nights_in_dst_to = 0  # the maximal length of stay in the destination
         self.flight_type = "round"  # oneway/round - will be deprecated in the near future
