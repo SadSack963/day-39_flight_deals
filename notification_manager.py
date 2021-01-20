@@ -13,6 +13,15 @@ YAHOO_RECIPIENT = os.getenv("SMTP_YAHOO_RECIPIENT")
 
 
 def send_mail(fd: FlightData):
+    link = f"https://www.google.co.uk/flights?hl=en#flt=" \
+           f"{fd.airport_from}.{fd.airport_to}.{fd.date_dep}*" \
+           f"{fd.airport_to}.{fd.airport_from}.{fd.date_ret}"
+
+    if fd.via == "":
+        via = "\n"
+    else:
+        via = f"Via:   {fd.via}\n\n"
+
     # YAHOO
     message = f"From: \"{YAHOO_SENDER}\" <{YAHOO_EMAIL}>\n" \
               f"To: {YAHOO_RECIPIENT}\n" \
@@ -21,8 +30,10 @@ def send_mail(fd: FlightData):
               f"From:  {fd.city_from} {fd.airport_from}\n" \
               f"To:    {fd.city_to} {fd.airport_to}\n" \
               f"Dep:   {fd.date_dep}\n" \
-              f"Ret:   {fd.date_ret}\n\n" \
-              f"Book Now!".encode("utf-8")
+              f"Ret:   {fd.date_ret}\n" \
+              f"{via}" \
+              f"Book Now!" \
+              f"{link}".encode("utf-8")
 
     print(message, end="\n\n")
 

@@ -56,7 +56,7 @@ class FlightSearch:
             "date_to": sd.date_to,
             "nights_in_dst_from": sd.nights_in_dst_from,
             "nights_in_dst_to": sd.nights_in_dst_to,
-            "flight_type": sd.flight_type,  # will be deprecated in the near future
+            # "flight_type": sd.flight_type,  # deprecated
             "max_stopovers": sd.max_stopovers,
             "one_for_city": sd.one_for_city,
             "curr": sd.curr,

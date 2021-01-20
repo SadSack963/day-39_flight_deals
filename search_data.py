@@ -17,7 +17,7 @@ class SearchData:
         self.nights_in_dst_from = 0  # the minimal length of stay in the destination
         self.nights_in_dst_to = 0  # the maximal length of stay in the destination
         self.max_fly_duration = 0
-        self.flight_type = "round"  # oneway/round - will be deprecated in the near future
+        # self.flight_type = "round"  # oneway/round - deprecated
         self.one_for_city = 1  # returns the cheapest flights to every city covered by the fly_to parameter
         self.one_per_date = 0
         self.adults = 1
@@ -46,7 +46,7 @@ class SearchData:
         self.ret_atime_to = "23:59"
         self.stopover_from = ""  # result filter, min length of stopover, 48:00 means 2 days (48 hours)
         self.stopover_to = ""
-        self.max_stopovers = 0  # max number of stopovers per itinerary
+        self.max_stopovers = 1  # max number of stopovers per itinerary
         self.max_sector_stopovers = 0  # max number of stopovers per itinerary's sector.
         self.conn_on_diff_airport = 1  # whether or not to search for connections on different airport, can be set to 0 or 1, 1 is default
         self.ret_from_diff_airport = 1  # whether or not to search for flights leaving from a different airport than where the customer landed, can be set to 0 or 1, 1 is default
