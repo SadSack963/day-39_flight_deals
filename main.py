@@ -108,6 +108,8 @@ for item in sheet_data:
         # # Update the spreadsheet
         # dm.modify_row(id=item["id"], lowestPrice=flight["price"])
 
+        # A more robust method would be to search through the routes to find the start of the return journey,
+        # by looking for flight["route"]["flyFrom"] == item["city"]
         if sd.max_stopovers > 0:
             rtn_route = 2
             via = flight["route"][0]["cityTo"]
