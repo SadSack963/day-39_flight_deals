@@ -1,6 +1,3 @@
-# Thanks to Luis
-# https://github.com/leba0495/100-Days-Of-Python-Journey/blob/main/Day39:40-flight-deal-finder/data_manager.py
-
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
