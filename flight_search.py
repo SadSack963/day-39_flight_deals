@@ -17,13 +17,16 @@ class FlightSearch:
         url = self.base_url + endpoint_url
 
         body = {
-            "apikey": self.API_KEY,
+            # "apikey": self.API_KEY,
             "term": city,
             "location_types": "city",
             "limit": "1",
         }
+        header = {
+            "apikey": self.API_KEY,
+        }
 
-        response = requests.get(url=url, params=body)
+        response = requests.get(url=url, params=body, headers=header)
         response.raise_for_status()
         # print(response.text)
         """

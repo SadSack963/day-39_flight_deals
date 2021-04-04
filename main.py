@@ -79,8 +79,8 @@ sheet_data = dm.get_all_rows()
 #
 # # The pprint module provides a capability to “pretty-print” arbitrary Python data structures
 # # in a form which can be used as input to the interpreter.
-# pp = pprint.PrettyPrinter()
-# pp.pprint(sheet_data)
+pp = pprint.PrettyPrinter()
+pp.pprint(sheet_data)
 # """
 # [{'city': 'Paris', 'iataCode': '', 'id': 2, 'lowestPrice': 54},
 #  {'city': 'Berlin', 'iataCode': '', 'id': 3, 'lowestPrice': 42},
@@ -94,47 +94,47 @@ sheet_data = dm.get_all_rows()
 #  {'city': 'Perth', 'iataCode': '', 'id': 11, 'lowestPrice': 600}]
 #  """
 
-# get_iata_codes()
+get_iata_codes()
 
 # Search for flights to all cities with a price lower than the one specified in the spreadsheet
-for item in sheet_data:
-    flight = search_flights(item)
-
-    # Load flight data from file
-    # with open("flight.json", mode="r") as file:
-    #     flight = json.load(fp=file)
-
-    if flight is not None:
-        # # Update the spreadsheet
-        # dm.modify_row(id=item["id"], lowestPrice=flight["price"])
-
-        # A more robust method would be to search through the routes to find the start of the return journey,
-        # by looking for flight["route"]["flyFrom"] == item["city"]
-        if sd.max_stopovers > 0:
-            rtn_route = 2
-            via = flight["route"][0]["cityTo"]
-        else:
-            rtn_route = 1
-            via = ""
-
-        # # Save the flight details in object
-        fd = FlightData(
-            price=flight["price"],
-            city_from=flight["cityFrom"],
-            airport_from=flight["flyFrom"],
-            city_to=flight["cityTo"],
-            airport_to=flight["flyTo"],
-            date_dep=flight["route"][0]["local_departure"][slice(10)],
-            date_ret=flight["route"][rtn_route]["local_departure"][slice(10)],
-            via=via,
-        )
-
-        # print(f"Price: £{fd.price}")
-        # print(f"From:  {fd.city_from} {fd.airport_from}")
-        # print(f"To:    {fd.city_to} {fd.airport_to}")
-        # print(f"Dep:   {fd.date_dep}")
-        # print(f"Ret:   {fd.date_ret}")
-        # print(f"Via:   {fd.via}\n\n")
-
-        # Send flight details by email
-        nm.send_mail(fd)
+# for item in sheet_data:
+#     flight = search_flights(item)
+#
+#     # Load flight data from file
+#     # with open("flight.json", mode="r") as file:
+#     #     flight = json.load(fp=file)
+#
+#     if flight is not None:
+#         # # Update the spreadsheet
+#         # dm.modify_row(id=item["id"], lowestPrice=flight["price"])
+#
+#         # A more robust method would be to search through the routes to find the start of the return journey,
+#         # by looking for flight["route"]["flyFrom"] == item["city"]
+#         if sd.max_stopovers > 0:
+#             rtn_route = 2
+#             via = flight["route"][0]["cityTo"]
+#         else:
+#             rtn_route = 1
+#             via = ""
+#
+#         # # Save the flight details in object
+#         fd = FlightData(
+#             price=flight["price"],
+#             city_from=flight["cityFrom"],
+#             airport_from=flight["flyFrom"],
+#             city_to=flight["cityTo"],
+#             airport_to=flight["flyTo"],
+#             date_dep=flight["route"][0]["local_departure"][slice(10)],
+#             date_ret=flight["route"][rtn_route]["local_departure"][slice(10)],
+#             via=via,
+#         )
+#
+#         # print(f"Price: £{fd.price}")
+#         # print(f"From:  {fd.city_from} {fd.airport_from}")
+#         # print(f"To:    {fd.city_to} {fd.airport_to}")
+#         # print(f"Dep:   {fd.date_dep}")
+#         # print(f"Ret:   {fd.date_ret}")
+#         # print(f"Via:   {fd.via}\n\n")
+#
+#         # Send flight details by email
+#         nm.send_mail(fd)

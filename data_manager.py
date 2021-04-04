@@ -49,7 +49,7 @@ class DataManager:
 
         response = requests.get(url=url, headers=headers)
         response.raise_for_status()
-        # print(response.text)
+        print(response.text)
 
         return response.json()["prices"]
 
