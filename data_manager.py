@@ -11,15 +11,14 @@ USERNAME = os.getenv("API_Username_Sheety")
 PROJECT = "flightDeals"
 SHEET = "prices"
 
+BASE_URL = "https://api.sheety.co"
+
 
 class DataManager:
     # This class is responsible for talking to the Google Sheet.
-    def __init__(self):
-        self.base_url = "https://api.sheety.co"
-
     def post_new_row(self, city, iata_code, lowest_price):
         endpoint_url = f"/{USERNAME}/{PROJECT}/{SHEET}"
-        url = self.base_url + endpoint_url
+        url = BASE_URL + endpoint_url
 
         headers = {
             "Authorization": f"Bearer {BEARER}",
@@ -37,11 +36,11 @@ class DataManager:
 
         response = requests.post(url=url, headers=headers, json=body)
         response.raise_for_status()
-        # print(response.text)
+        print(f'Sheety post_new_row() {response.text = }')
 
     def get_all_rows(self):
         endpoint_url = f"/{USERNAME}/{PROJECT}/{SHEET}"
-        url = self.base_url + endpoint_url
+        url = BASE_URL + endpoint_url
 
         headers = {
             "Authorization": f"Bearer {BEARER}",
@@ -49,7 +48,7 @@ class DataManager:
 
         response = requests.get(url=url, headers=headers)
         response.raise_for_status()
-        print(response.text)
+        print(f'Sheety get_all_rows() {response.text = }')
 
         return response.json()["prices"]
 
@@ -61,7 +60,7 @@ class DataManager:
                   lowestPrice= Lowest Price (int)
         """
         endpoint_url = f"/{USERNAME}/{PROJECT}/{SHEET}/{id}"
-        url = self.base_url + endpoint_url
+        url = BASE_URL + endpoint_url
 
         headers = {
             "Authorization": f"Bearer {BEARER}",
@@ -83,6 +82,4 @@ class DataManager:
 
         response = requests.put(url=url, headers=headers, json=body)
         response.raise_for_status()
-        # print(response.text)
-
-
+        print(f'Sheety modify_row() {response.text = }')
